@@ -45,12 +45,14 @@ namespace Battleship
             }
 
             //button91 = new Button()
-            button101 = new Button();
+            Clear = new Button();
             Vertical = new RadioButton();
             Horizontal = new RadioButton();
             ((ISupportInitialize)(splitContainer1)).BeginInit();
             this.Vertical = new System.Windows.Forms.RadioButton();
             this.Horizontal = new System.Windows.Forms.RadioButton();
+            this.Clear = new System.Windows.Forms.Button();
+            this.Play = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PTB = new System.Windows.Forms.RadioButton();
@@ -86,9 +88,10 @@ namespace Battleship
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.Play);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.button101);
+            this.splitContainer1.Panel2.Controls.Add(this.Clear);
             this.splitContainer1.Size = new System.Drawing.Size(770, 385);
             this.splitContainer1.SplitterDistance = 304;
             this.splitContainer1.TabIndex = 103;
@@ -111,14 +114,24 @@ namespace Battleship
             }
 
             // 
-            // button101
+            // Clear
             // 
-            button101.Location = new Point(559, 24);
-            button101.Name = "button101";
-            button101.Size = new Size(75, 23);
-            button101.TabIndex = 105;
-            button101.Text = "Clear";
-            button101.UseVisualStyleBackColor = true;
+            this.Clear.Location = new System.Drawing.Point(662, 24);
+            this.Clear.Name = "Clear";
+            this.Clear.Size = new System.Drawing.Size(75, 23);
+            this.Clear.TabIndex = 105;
+            this.Clear.Text = "Clear Ships";
+            this.Clear.UseVisualStyleBackColor = true;
+            // 
+            // Play
+            // 
+            this.Play.Location = new System.Drawing.Point(570, 24);
+            this.Play.Name = "Play";
+            this.Play.Size = new System.Drawing.Size(75, 23);
+            this.Play.TabIndex = 108;
+            this.Play.Text = "Play!";
+            this.Play.UseVisualStyleBackColor = true;
+            this.Play.Click += new System.EventHandler(this.button102_Click);
             // 
             // Vertical
             // 
@@ -142,7 +155,6 @@ namespace Battleship
             this.Horizontal.TabStop = true;
             this.Horizontal.Text = "Horizontal";
             this.Horizontal.UseVisualStyleBackColor = true;
-            this.Horizontal.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // panel1
             // 
@@ -209,7 +221,6 @@ namespace Battleship
             this.BATT.TabStop = true;
             this.BATT.Text = "Battleship";
             this.BATT.UseVisualStyleBackColor = true;
-            this.BATT.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
             // 
             // AC
             // 
@@ -245,19 +256,11 @@ namespace Battleship
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+            #region get Coordinates
             int xCoord = 0;
             int yCoord = 0;
-
-            Battleship.Orientation direction;
-
-            int boat = 0;
 
             for (int i = 0; i < 10; i++)
             {
@@ -270,52 +273,104 @@ namespace Battleship
                     }
                 }
             }
+            #endregion
 
-
-            if (Horizontal.Checked.Equals(true))
-            {
-                direction = (Battleship.Orientation)0;
-            }
-            else
-            {
-                direction = (Battleship.Orientation)1;
-            }
-
-
-            if (PTB.Checked.Equals(true))
-            {
-                boat = 2;
-            }
-            else if (Sub.Checked.Equals(true))
-            {
-                boat = 3;
-            }
-            else if (DEST.Checked.Equals(true))
-            {
-                boat = 4;
-            }
-            else if (BATT.Checked.Equals(true))
-            {
-                boat = 5;
-            }
-            else
-            {
-                boat = 6;
-            }
-
+            #region place Boat
             if (!game.boardsAreSet)
             {
+                #region get Orientation
+                Battleship.Orientation direction;
+                if (Horizontal.Checked.Equals(true))
+                {
+                    direction = (Battleship.Orientation)0;
+                }
+                else
+                {
+                    direction = (Battleship.Orientation)1;
+                }
+                #endregion
+
+                #region get Boat
+                int boat = 0;
+                if (PTB.Checked.Equals(true))
+                {
+                    boat = 2;
+                }
+                else if (DEST.Checked.Equals(true))
+                {
+                    boat = 3;
+                }
+                else if (Sub.Checked.Equals(true))
+                {
+                    boat = 4;
+                }
+                else if (BATT.Checked.Equals(true))
+                {
+                    boat = 5;
+                }
+                else
+                {
+                    boat = 6;
+                }
+                #endregion
+
                 game.AttemptToPlaceShip(ref game.humanBoard, boat, direction, xCoord, yCoord);
+
+                #region paint Boat
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (game.humanBoard[i,j].Equals(boat))
+                        {
+                            switch (boat)
+                            {
+                                case 2:
+                                    buttons[i][j].BackColor = Color.AliceBlue;
+                                    break;
+                                case 3:
+                                    buttons[i][j].BackColor = Color.Red;
+                                    break;
+                                case 4:
+                                    buttons[i][j].BackColor = Color.PaleGreen;
+                                    break;
+                                case 5:
+                                    buttons[i][j].BackColor = Color.Orange;
+                                    break;
+                                case 6:
+                                    buttons[i][j].BackColor = Color.Yellow;
+                                    break;
+                            }
+                        }
+                    }
+                }
+                #endregion
             }
+            #endregion
+
+            #region FIRE
             else
             {
-                game.FIRE(xCoord, yCoord);
+                if(game.FIRE(xCoord, yCoord) > 0)
+                {
+                    buttons[xCoord][yCoord].Text = "HIT";
+                }
+                game.humanTurn = !game.humanTurn;
             }
+            #endregion
         }
 
-        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        private void button102_Click(object sender, EventArgs e)
         {
+            Clear.Enabled = false;
+            Horizontal.Enabled = false;
+            Vertical.Enabled = false;
+            foreach (RadioButton r in panel2.Controls)
+            {
+                r.Enabled = false;
+            }
 
+            game.Play();
         }
     }
 }

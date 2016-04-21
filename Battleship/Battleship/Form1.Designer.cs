@@ -138,7 +138,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Horizontal = new System.Windows.Forms.RadioButton();
             this.Vertical = new System.Windows.Forms.RadioButton();
-            this.button101 = new System.Windows.Forms.Button();
+            this.Clear = new System.Windows.Forms.Button();
+            this.Play = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -259,9 +260,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.Play);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.button101);
+            this.splitContainer1.Panel2.Controls.Add(this.Clear);
             this.splitContainer1.Size = new System.Drawing.Size(770, 385);
             this.splitContainer1.SplitterDistance = 304;
             this.splitContainer1.TabIndex = 103;
@@ -1098,7 +1100,6 @@
             this.BATT.TabIndex = 3;
             this.BATT.Text = "Battleship";
             this.BATT.UseVisualStyleBackColor = true;
-            this.BATT.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
             // 
             // DEST
             // 
@@ -1152,7 +1153,6 @@
             this.Horizontal.TabStop = true;
             this.Horizontal.Text = "Horizontal";
             this.Horizontal.UseVisualStyleBackColor = true;
-            this.Horizontal.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Vertical
             // 
@@ -1164,14 +1164,24 @@
             this.Vertical.Text = "Vertical";
             this.Vertical.UseVisualStyleBackColor = true;
             // 
-            // button101
+            // Clear
             // 
-            this.button101.Location = new System.Drawing.Point(637, 24);
-            this.button101.Name = "button101";
-            this.button101.Size = new System.Drawing.Size(75, 23);
-            this.button101.TabIndex = 105;
-            this.button101.Text = "Clear";
-            this.button101.UseVisualStyleBackColor = true;
+            this.Clear.Location = new System.Drawing.Point(662, 24);
+            this.Clear.Name = "Clear";
+            this.Clear.Size = new System.Drawing.Size(75, 23);
+            this.Clear.TabIndex = 105;
+            this.Clear.Text = "Clear Ships";
+            this.Clear.UseVisualStyleBackColor = true;
+            // 
+            // Play
+            // 
+            this.Play.Location = new System.Drawing.Point(570, 24);
+            this.Play.Name = "Play";
+            this.Play.Size = new System.Drawing.Size(75, 23);
+            this.Play.TabIndex = 108;
+            this.Play.Text = "Play!";
+            this.Play.UseVisualStyleBackColor = true;
+            this.Play.Click += new System.EventHandler(this.button102_Click);
             // 
             // Form1
             // 
@@ -1299,7 +1309,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button101;
+        private System.Windows.Forms.Button Clear;
+        private System.Windows.Forms.Button Play;
         public System.Windows.Forms.RadioButton Vertical;
         public System.Windows.Forms.RadioButton Horizontal;
         public System.Windows.Forms.Panel panel2;

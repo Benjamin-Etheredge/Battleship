@@ -11,7 +11,7 @@ namespace Battleship
 
         // Variables
         public int[,] humanBoard;
-        private int[,] computerBoard;
+        public int[,] computerBoard;
         private Random randomObject = new Random();
 
         public bool boardsAreSet = false;
@@ -37,7 +37,7 @@ namespace Battleship
         private const int AIRCRAFT_CARRIER = 6;
         private const int AIRCRAFT_CARRIER_SIZE = 5;
 
-        private bool humanTurn = true;
+        public bool humanTurn = true;
 
         public Battleship()
         {
@@ -63,6 +63,8 @@ namespace Battleship
         {
 
             SetupComputerBoard();
+            boardsAreSet = true;
+
             SimpleDisplay();
             SetupHumanBoard(); //TODO: remove this for gui
             SimpleDisplay();
@@ -79,7 +81,7 @@ namespace Battleship
                 }
                 humanTurn = !humanTurn;
 
-                SimpleDisplay();
+                //SimpleDisplay();
             }
         }
 
@@ -89,8 +91,8 @@ namespace Battleship
             {
                 for (int j = 0; j < SIZE_OF_BOARD; j++)
                 {
-                    humanBoard[i, j] = 0;
-                    computerBoard[i, j] = 0;
+                    humanBoard[i, j] = 1;
+                    computerBoard[i, j] = 1;
                 }
             }
         }
@@ -170,7 +172,7 @@ namespace Battleship
 
             foreach (int spot in board)
             {
-                if (spot.Equals(size))
+                if (spot.Equals(shipCode))
                 {
                     alreadyPlacedShip = true;
                     break;
@@ -190,14 +192,14 @@ namespace Battleship
                     if (orientation == Orientation.Horizontal)
                     {
 
-                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 0)
+                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 1)
                         {
                             isLocationFree = false;
                         }
                     }
                     else
                     {
-                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 0)
+                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 1)
                         {
                             isLocationFree = false;
                         }
@@ -210,11 +212,11 @@ namespace Battleship
                     {
                         if (orientation == Orientation.Horizontal)
                         {
-                            tempBoard[x + i, y] = size;
+                            tempBoard[x + i, y] = shipCode;
                         }
                         else
                         {
-                            tempBoard[x, y + i] = size;
+                            tempBoard[x, y + i] = shipCode;
                         }
                     }
                     alreadyPlacedShip = true;
@@ -253,14 +255,14 @@ namespace Battleship
                     if (orientation == Orientation.Horizontal)
                     {
 
-                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 0)
+                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 1)
                         {
                             isLocationFree = false;
                         }
                     }
                     else
                     {
-                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 0)
+                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 1)
                         {
                             isLocationFree = false;
                         }
@@ -356,7 +358,7 @@ namespace Battleship
             // using a ref would be easier but can't in c#
             int valueOfTargetedLocation = 0;
 
-            if (humanTurn)
+            if (!humanTurn)
             {
                 if (humanBoard[x, y] > 0)
                 {
