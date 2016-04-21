@@ -351,11 +351,30 @@ namespace Battleship
             #region FIRE
             else
             {
-                if(game.FIRE(xCoord, yCoord) > 0)
+                if(buttons[xCoord][yCoord].Text == string.Empty)
                 {
-                    buttons[xCoord][yCoord].Text = "HIT";
+                    if (game.FIRE(xCoord, yCoord) > 1)
+                    {
+                        buttons[xCoord][yCoord].Text = "HIT";
+                    }
+                    else
+                    {
+
+                        buttons[xCoord][yCoord].Text = "MISSED";
+                    }
+                    return 0;
                 }
-                game.humanTurn = !game.humanTurn;
+
+                if (game.ComputerFIRE()[0] > 1) 
+                {
+                    buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.OrangeRed;
+                }
+                else
+                {
+                    buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.White;
+                }
+                return 1;
+                //game.humanTurn = !game.humanTurn;
             }
             #endregion
         }
@@ -370,7 +389,7 @@ namespace Battleship
                 r.Enabled = false;
             }
 
-            game.Play();
+            game.SetupComputerBoard();
         }
     }
 }

@@ -59,30 +59,51 @@ namespace Battleship
             Console.WriteLine();
         }
 
-        public void Play()
+        //public void Play()
+        //{
+
+        //    SetupComputerBoard();
+        //    boardsAreSet = true;
+
+        //    while (IsWinner() == 0)
+        //    {
+        //        if (humanTurn)
+        //        {
+        //            ComputerFIRE();
+        //        }
+        //        else
+        //        {
+        //            ComputerFIRE();
+        //        }
+        //        humanTurn = !humanTurn;
+
+        //        //SimpleDisplay();
+        //    }
+        //}
+
+        public bool Play_oneTurn(int x, int y)
         {
+            bool hit = false;
 
-            SetupComputerBoard();
-            boardsAreSet = true;
-
-            SimpleDisplay();
-            SetupHumanBoard(); //TODO: remove this for gui
-            SimpleDisplay();
-
-            while (IsWinner() == 0)
+            if (!boardsAreSet)
             {
-                if (humanTurn)
-                {
-                    ComputerFIRE();
-                }
-                else
-                {
-                    ComputerFIRE();
-                }
-                humanTurn = !humanTurn;
-
-                //SimpleDisplay();
+                SetupComputerBoard();
+                boardsAreSet = true;
             }
+            
+            if (humanTurn)
+            {
+                if (FIRE(x, y) > 1)
+                {
+                    hit = true;
+                }
+            }
+            else
+            {
+                ComputerFIRE();
+            }
+            humanTurn = !humanTurn;
+            return hit;
         }
 
         public void ClearBoards()
@@ -143,6 +164,8 @@ namespace Battleship
 
             // place carrier
             while (!AttemptToPlaceShip(ref computerBoard, AIRCRAFT_CARRIER, AIRCRAFT_CARRIER_SIZE, (Orientation)randomObject.Next(1), randomObject.Next(SIZE_OF_BOARD - 1), randomObject.Next(SIZE_OF_BOARD - 1))) ;
+
+            boardsAreSet = true;
         }
 
         public bool AttemptToPlaceShip(ref int[,] board, int shipCode, Orientation orientation, int x, int y)
@@ -292,18 +315,23 @@ namespace Battleship
         }
 
         // fire randomly till valid move is made
-        public void ComputerFIRE()
+        public int[] ComputerFIRE()
         {
-            bool hasFired = false;
-            while (!hasFired)
+            //bool hasFired = false;
+            int[] hitValues = new int[3] { 0, 0, 0 };
+            int x;
+            int y;
+
+            while (hitValues[0].Equals(0))
             {
-                int x = randomObject.Next(9);
-                int y = randomObject.Next(9);
-                if (FIRE(x, y) != 0)
-                {
-                    hasFired = true;
-                }
+                x = randomObject.Next(9);
+                y = randomObject.Next(9);
+
+                hitValues[0] = FIRE(x, y);
+                hitValues[1] = x;
+                hitValues[2] = y;
             }
+            return hitValues;
         }
 
         const int HUMAN_WIN = 1;
