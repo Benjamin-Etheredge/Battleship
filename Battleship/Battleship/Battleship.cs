@@ -10,9 +10,11 @@ namespace Battleship
         public enum Orientation : int { Horizontal = 0, Vertical = 1 };
 
         // Variables
-        private int[,] humanBoard;
+        public int[,] humanBoard;
         private int[,] computerBoard;
         private Random randomObject = new Random();
+
+        public bool boardsAreSet = false;
 
         // Constants
         private const int SIZE_OF_BOARD = 10;
@@ -140,6 +142,90 @@ namespace Battleship
             // place carrier
             while (!AttemptToPlaceShip(ref computerBoard, AIRCRAFT_CARRIER, AIRCRAFT_CARRIER_SIZE, (Orientation)randomObject.Next(1), randomObject.Next(SIZE_OF_BOARD - 1), randomObject.Next(SIZE_OF_BOARD - 1))) ;
         }
+
+        public bool AttemptToPlaceShip(ref int[,] board, int shipCode, Orientation orientation, int x, int y)
+        {
+            int size = -1;
+
+            switch (shipCode)
+            {
+                case 2:
+                    size = 2;
+                    break;
+                case 3:
+                    size = 3;
+                    break;
+                case 4:
+                    size = 3;
+                    break;
+                case 5:
+                    size = 4;
+                    break;
+                case 6:
+                    size = 5;
+                    break;
+            }
+
+            bool alreadyPlacedShip = false;
+
+            foreach (int spot in board)
+            {
+                if (spot.Equals(size))
+                {
+                    alreadyPlacedShip = true;
+                    break;
+                }
+            }
+
+            if (!alreadyPlacedShip)
+            {
+                // is spot available
+                bool isLocationFree = true;
+
+                int[,] tempBoard = board;
+                // Copy(board, tempBoard, SIZE_OF_BOARD);
+
+                for (int i = 0; i < size && isLocationFree; i++)
+                {
+                    if (orientation == Orientation.Horizontal)
+                    {
+
+                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 0)
+                        {
+                            isLocationFree = false;
+                        }
+                    }
+                    else
+                    {
+                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 0)
+                        {
+                            isLocationFree = false;
+                        }
+                    }
+                }
+                //TODO: TEST THIS
+                if (isLocationFree)
+                {
+                    for (int i = 0; i < size && isLocationFree; i++)
+                    {
+                        if (orientation == Orientation.Horizontal)
+                        {
+                            tempBoard[x + i, y] = size;
+                        }
+                        else
+                        {
+                            tempBoard[x, y + i] = size;
+                        }
+                    }
+                    alreadyPlacedShip = true;
+                    board = tempBoard;
+                }
+
+                return isLocationFree;
+            }
+            return alreadyPlacedShip;
+        }
+
 
         public bool AttemptToPlaceShip(ref int[,] board, int shipCode, int size, Orientation orientation, int x, int y)
         {

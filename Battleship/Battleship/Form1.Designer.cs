@@ -129,13 +129,22 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.AC = new System.Windows.Forms.RadioButton();
+            this.BATT = new System.Windows.Forms.RadioButton();
+            this.DEST = new System.Windows.Forms.RadioButton();
+            this.Sub = new System.Windows.Forms.RadioButton();
+            this.PTB = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.Horizontal = new System.Windows.Forms.RadioButton();
+            this.Vertical = new System.Windows.Forms.RadioButton();
             this.button101 = new System.Windows.Forms.Button();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -250,9 +259,9 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel2);
+            this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Panel2.Controls.Add(this.button101);
-            this.splitContainer1.Panel2.Controls.Add(this.radioButton2);
-            this.splitContainer1.Panel2.Controls.Add(this.radioButton1);
             this.splitContainer1.Size = new System.Drawing.Size(770, 385);
             this.splitContainer1.SplitterDistance = 304;
             this.splitContainer1.TabIndex = 103;
@@ -1058,37 +1067,111 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.AC);
+            this.panel2.Controls.Add(this.BATT);
+            this.panel2.Controls.Add(this.DEST);
+            this.panel2.Controls.Add(this.Sub);
+            this.panel2.Controls.Add(this.PTB);
+            this.panel2.Location = new System.Drawing.Point(214, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(339, 74);
+            this.panel2.TabIndex = 107;
+            // 
+            // AC
+            // 
+            this.AC.AutoSize = true;
+            this.AC.Location = new System.Drawing.Point(243, 16);
+            this.AC.Name = "AC";
+            this.AC.Size = new System.Drawing.Size(91, 17);
+            this.AC.TabIndex = 4;
+            this.AC.Text = "Aircraft Carrier";
+            this.AC.UseVisualStyleBackColor = true;
+            // 
+            // BATT
+            // 
+            this.BATT.AutoSize = true;
+            this.BATT.Location = new System.Drawing.Point(173, 45);
+            this.BATT.Name = "BATT";
+            this.BATT.Size = new System.Drawing.Size(71, 17);
+            this.BATT.TabIndex = 3;
+            this.BATT.Text = "Battleship";
+            this.BATT.UseVisualStyleBackColor = true;
+            this.BATT.CheckedChanged += new System.EventHandler(this.radioButton6_CheckedChanged);
+            // 
+            // DEST
+            // 
+            this.DEST.AutoSize = true;
+            this.DEST.Location = new System.Drawing.Point(120, 16);
+            this.DEST.Name = "DEST";
+            this.DEST.Size = new System.Drawing.Size(70, 17);
+            this.DEST.TabIndex = 2;
+            this.DEST.Text = "Destroyer";
+            this.DEST.UseVisualStyleBackColor = true;
+            // 
+            // Sub
+            // 
+            this.Sub.AutoSize = true;
+            this.Sub.Location = new System.Drawing.Point(50, 45);
+            this.Sub.Name = "Sub";
+            this.Sub.Size = new System.Drawing.Size(75, 17);
+            this.Sub.TabIndex = 1;
+            this.Sub.Text = "Submarine";
+            this.Sub.UseVisualStyleBackColor = true;
+            // 
+            // PTB
+            // 
+            this.PTB.AutoSize = true;
+            this.PTB.Checked = true;
+            this.PTB.Location = new System.Drawing.Point(3, 16);
+            this.PTB.Name = "PTB";
+            this.PTB.Size = new System.Drawing.Size(64, 17);
+            this.PTB.TabIndex = 0;
+            this.PTB.TabStop = true;
+            this.PTB.Text = "PT Boat";
+            this.PTB.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.Horizontal);
+            this.panel1.Controls.Add(this.Vertical);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(205, 74);
+            this.panel1.TabIndex = 106;
+            // 
+            // Horizontal
+            // 
+            this.Horizontal.AutoSize = true;
+            this.Horizontal.Checked = true;
+            this.Horizontal.Location = new System.Drawing.Point(9, 21);
+            this.Horizontal.Name = "Horizontal";
+            this.Horizontal.Size = new System.Drawing.Size(72, 17);
+            this.Horizontal.TabIndex = 103;
+            this.Horizontal.TabStop = true;
+            this.Horizontal.Text = "Horizontal";
+            this.Horizontal.UseVisualStyleBackColor = true;
+            this.Horizontal.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // Vertical
+            // 
+            this.Vertical.AutoSize = true;
+            this.Vertical.Location = new System.Drawing.Point(101, 21);
+            this.Vertical.Name = "Vertical";
+            this.Vertical.Size = new System.Drawing.Size(60, 17);
+            this.Vertical.TabIndex = 104;
+            this.Vertical.Text = "Vertical";
+            this.Vertical.UseVisualStyleBackColor = true;
+            // 
             // button101
             // 
-            this.button101.Location = new System.Drawing.Point(559, 24);
+            this.button101.Location = new System.Drawing.Point(637, 24);
             this.button101.Name = "button101";
             this.button101.Size = new System.Drawing.Size(75, 23);
             this.button101.TabIndex = 105;
             this.button101.Text = "Clear";
             this.button101.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(166, 30);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(60, 17);
-            this.radioButton2.TabIndex = 104;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Vertical";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(74, 30);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(72, 17);
-            this.radioButton1.TabIndex = 103;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Horizontal";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Form1
             // 
@@ -1103,9 +1186,12 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1214,8 +1300,15 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button101;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        public System.Windows.Forms.RadioButton Vertical;
+        public System.Windows.Forms.RadioButton Horizontal;
+        public System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.RadioButton AC;
+        public System.Windows.Forms.RadioButton BATT;
+        public System.Windows.Forms.RadioButton DEST;
+        public System.Windows.Forms.RadioButton Sub;
+        public System.Windows.Forms.RadioButton PTB;
+        public System.Windows.Forms.Panel panel1;
     }
 }
 
