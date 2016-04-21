@@ -29,16 +29,16 @@ namespace Battleship
         private void dynamic_InitializeComponent()
         {
             splitContainer1 = new SplitContainer();
-            buttons = new Button[10][];
+            buttons = new Button[Battleship.SIZE_OF_BOARD][];
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                buttons[i] = new Button[10];
+                buttons[i] = new Button[Battleship.SIZE_OF_BOARD];
             }
 
             for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     buttons[i][j] = new Button();
                 }
@@ -78,9 +78,9 @@ namespace Battleship
             // 
             // splitContainer1.Panel1
             // 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     splitContainer1.Panel1.Controls.Add(buttons[i][j]);
                 }
@@ -94,14 +94,14 @@ namespace Battleship
             this.splitContainer1.Panel2.Controls.Add(this.Clear);
             this.splitContainer1.Size = new System.Drawing.Size(770, 385);
             this.splitContainer1.SplitterDistance = 304;
-            this.splitContainer1.TabIndex = 103;
+            this.splitContainer1.TabIndex = Battleship.SIZE_OF_BOARD3;
             // 
             // button91
             // 
             int n = 1;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     buttons[i][j].Location = new Point(75*i, 23*j);
                     buttons[i][j].Name = "button" + n.ToString();
@@ -119,7 +119,7 @@ namespace Battleship
             this.Clear.Location = new System.Drawing.Point(662, 24);
             this.Clear.Name = "Clear";
             this.Clear.Size = new System.Drawing.Size(75, 23);
-            this.Clear.TabIndex = 105;
+            this.Clear.TabIndex = Battleship.SIZE_OF_BOARD5;
             this.Clear.Text = "Clear Ships";
             this.Clear.UseVisualStyleBackColor = true;
             // 
@@ -128,18 +128,18 @@ namespace Battleship
             this.Play.Location = new System.Drawing.Point(570, 24);
             this.Play.Name = "Play";
             this.Play.Size = new System.Drawing.Size(75, 23);
-            this.Play.TabIndex = 108;
+            this.Play.TabIndex = Battleship.SIZE_OF_BOARD8;
             this.Play.Text = "Play!";
             this.Play.UseVisualStyleBackColor = true;
-            this.Play.Click += new System.EventHandler(this.button102_Click);
+            this.Play.Click += new System.EventHandler(this.buttonBattleship.SIZE_OF_BOARD2_Click);
             // 
             // Vertical
             // 
             this.Vertical.AutoSize = true;
-            this.Vertical.Location = new System.Drawing.Point(101, 21);
+            this.Vertical.Location = new System.Drawing.Point(Battleship.SIZE_OF_BOARD1, 21);
             this.Vertical.Name = "Vertical";
             this.Vertical.Size = new System.Drawing.Size(60, 17);
-            this.Vertical.TabIndex = 104;
+            this.Vertical.TabIndex = Battleship.SIZE_OF_BOARD4;
             this.Vertical.TabStop = true;
             this.Vertical.Text = "Vertical";
             this.Vertical.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@ namespace Battleship
             this.Horizontal.Location = new System.Drawing.Point(9, 21);
             this.Horizontal.Name = "Horizontal";
             this.Horizontal.Size = new System.Drawing.Size(72, 17);
-            this.Horizontal.TabIndex = 103;
+            this.Horizontal.TabIndex = Battleship.SIZE_OF_BOARD3;
             this.Horizontal.TabStop = true;
             this.Horizontal.Text = "Horizontal";
             this.Horizontal.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@ namespace Battleship
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(205, 74);
-            this.panel1.TabIndex = 106;
+            this.panel1.TabIndex = Battleship.SIZE_OF_BOARD6;
             // 
             // panel2
             // 
@@ -175,7 +175,7 @@ namespace Battleship
             this.panel2.Location = new System.Drawing.Point(214, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(339, 74);
-            this.panel2.TabIndex = 107;
+            this.panel2.TabIndex = Battleship.SIZE_OF_BOARD7;
             // 
             // PTB
             // 
@@ -379,7 +379,7 @@ namespace Battleship
             #endregion
         }
 
-        private void button102_Click(object sender, EventArgs e)
+        private void buttonBattleship.SIZE_OF_BOARD2_Click(object sender, EventArgs e)
         {
             Clear.Enabled = false;
             Horizontal.Enabled = false;
