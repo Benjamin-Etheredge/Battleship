@@ -17,24 +17,25 @@ namespace Battleship
         public bool boardsAreSet = false;
 
         // Constants
-        private const int SIZE_OF_BOARD = 10;
+        public const int SIZE_OF_BOARD = 10;
 
-        private const int ATTACKED = 0;
-        private const int EMPTY_SEA = 1;
+        public const int MISS = 0;
+        public const int HIT = 1;
+        public const int EMPTY_SEA = 2;
 
-        private const int PATROL_BOAT = 2;
+        public const int PATROL_BOAT = 3;
         private const int PATROL_SIZE = 2;
 
-        private const int DESTROYER = 3;
+        public const int DESTROYER = 4;
         private const int DESTROYER_SIZE = 3;
 
-        private const int SUBMARINE = 4;
+        public const int SUBMARINE = 5;
         private const int SUBMARINE_SIZE = 3;
 
-        private const int BATTLESHIP = 5;
+        public const int BATTLESHIP = 6;
         private const int BATTLESHIP_SIZE = 4;
 
-        private const int AIRCRAFT_CARRIER = 6;
+        public const int AIRCRAFT_CARRIER = 7;
         private const int AIRCRAFT_CARRIER_SIZE = 5;
 
         public bool humanTurn = true;
@@ -93,7 +94,7 @@ namespace Battleship
             
             if (humanTurn)
             {
-                if (FIRE(x, y) > 1)
+                if (FIRE(x, y) > EMPTY_SEA)
                 {
                     hit = true;
                 }
@@ -112,8 +113,8 @@ namespace Battleship
             {
                 for (int j = 0; j < SIZE_OF_BOARD; j++)
                 {
-                    humanBoard[i, j] = 1;
-                    computerBoard[i, j] = 1;
+                    humanBoard[i, j] = EMPTY_SEA;
+                    computerBoard[i, j] = EMPTY_SEA;
                 }
             }
         }
@@ -175,19 +176,19 @@ namespace Battleship
             switch (shipCode)
             {
                 case 2:
-                    size = 2;
+                    size = PATROL_SIZE;
                     break;
                 case 3:
-                    size = 3;
+                    size = DESTROYER_SIZE;
                     break;
                 case 4:
-                    size = 3;
+                    size = SUBMARINE_SIZE;
                     break;
                 case 5:
-                    size = 4;
+                    size = BATTLESHIP_SIZE;
                     break;
                 case 6:
-                    size = 5;
+                    size = AIRCRAFT_CARRIER_SIZE;
                     break;
             }
 
@@ -215,14 +216,14 @@ namespace Battleship
                     if (orientation == Orientation.Horizontal)
                     {
 
-                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 1)
+                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > EMPTY_SEA)
                         {
                             isLocationFree = false;
                         }
                     }
                     else
                     {
-                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 1)
+                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > EMPTY_SEA)
                         {
                             isLocationFree = false;
                         }
@@ -350,11 +351,11 @@ namespace Battleship
                 for (int j = 0; j < SIZE_OF_BOARD && (didComputerWin || didHumanWin); j++)
                 {
                     // will run check everytime but oh well
-                    if (didComputerWin && humanBoard[i, j] > 0)
+                    if (didComputerWin && humanBoard[i, j] > EMPTY_SEA)
                     {
                         didComputerWin = false;
                     }
-                    if (didHumanWin && computerBoard[i, j] > 0)
+                    if (didHumanWin && computerBoard[i, j] > EMPTY_SEA)
                     {
                         didHumanWin = false;
                     }
@@ -388,19 +389,31 @@ namespace Battleship
 
             if (!humanTurn)
             {
-                if (humanBoard[x, y] > 0)
+                if (humanBoard[x, y] == EMPTY_SEA)
                 {
                     valueOfTargetedLocation = humanBoard[x, y];
-                    humanBoard[x, y] = ATTACKED;
+                    humanBoard[x, y] = MISS;
+                }
+                else if (humanBoard[x, y] > EMPTY_SEA) 
+                {
+                    valueOfTargetedLocation = humanBoard[x, y];
+                    humanBoard[x, y] = HIT;
                 }
             }
             else
             {
-                if (computerBoard[x, y] > 0)
+                if (computerBoard[x, y] == EMPTY_SEA)
+                    
                 {
                     valueOfTargetedLocation = computerBoard[x, y];
-                    computerBoard[x, y] = ATTACKED;
+                    computerBoard[x, y] = HIT;
                 }
+                else if (computerBoard[x, y] > EMPTY_SEA)
+                {
+                    valueOfTargetedLocation = computerBoard[x, y];
+                    computerBoard[x, y] = MISS;
+                }
+                
             }
 
             return valueOfTargetedLocation;

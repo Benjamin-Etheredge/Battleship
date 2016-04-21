@@ -36,7 +36,7 @@ namespace Battleship
                 buttons[i] = new Button[10];
             }
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
@@ -262,9 +262,9 @@ namespace Battleship
             int xCoord = 0;
             int yCoord = 0;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     if (sender.Equals(buttons[i][j]))
                     {
@@ -294,32 +294,32 @@ namespace Battleship
                 int boat = 0;
                 if (PTB.Checked.Equals(true))
                 {
-                    boat = 2;
+                    boat = Battleship.PATROL_BOAT;
                 }
                 else if (DEST.Checked.Equals(true))
                 {
-                    boat = 3;
+                    boat = Battleship.DESTROYER;
                 }
                 else if (Sub.Checked.Equals(true))
                 {
-                    boat = 4;
+                    boat = Battleship.SUBMARINE;
                 }
                 else if (BATT.Checked.Equals(true))
                 {
-                    boat = 5;
+                    boat = Battleship.BATTLESHIP;
                 }
                 else
                 {
-                    boat = 6;
+                    boat = Battleship.AIRCRAFT_CARRIER;
                 }
                 #endregion
 
                 game.AttemptToPlaceShip(ref game.humanBoard, boat, direction, xCoord, yCoord);
 
                 #region paint Boat
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                     {
                         if (game.humanBoard[i,j].Equals(boat))
                         {
@@ -353,7 +353,7 @@ namespace Battleship
             {
                 if(buttons[xCoord][yCoord].Text == string.Empty)
                 {
-                    if (game.FIRE(xCoord, yCoord) > 1)
+                    if (game.FIRE(xCoord, yCoord) > Battleship.EMPTY_SEA)
                     {
                         buttons[xCoord][yCoord].Text = "HIT";
                     }
@@ -362,10 +362,10 @@ namespace Battleship
 
                         buttons[xCoord][yCoord].Text = "MISSED";
                     }
-                    return 0;
+                   // return 0;
                 }
 
-                if (game.ComputerFIRE()[0] > 1) 
+                if (game.ComputerFIRE()[0] > Battleship.EMPTY_SEA) 
                 {
                     buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.OrangeRed;
                 }
@@ -373,7 +373,7 @@ namespace Battleship
                 {
                     buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.White;
                 }
-                return 1;
+                //return 1;
                 //game.humanTurn = !game.humanTurn;
             }
             #endregion
