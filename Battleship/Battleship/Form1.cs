@@ -21,9 +21,9 @@ namespace Battleship
 
             playerBoard.label_who.Text = "Human's ships";
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     playerBoard.buttons[i][j].Click += new EventHandler(button1_Click);
                 }
@@ -35,9 +35,9 @@ namespace Battleship
             Size = new Size(305, 750);
             SetDesktopLocation(0, 0);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     playerBoard.buttons[i][j].Enabled = false;
                 }
@@ -53,9 +53,9 @@ namespace Battleship
 
             game.SetupComputerBoard();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     computerBoard.buttons[i][j].Click += new EventHandler(button1_Click);
                 }
@@ -65,9 +65,9 @@ namespace Battleship
         private void Clear_Click(object sender, EventArgs e)
         {
             game.ClearBoards();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                 {
                     playerBoard.buttons[i][j].BackColor = Color.Transparent;
                 }
@@ -83,9 +83,9 @@ namespace Battleship
                 int xCoord = 0;
                 int yCoord = 0;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                     {
                         if (sender.Equals(playerBoard.buttons[i][j]))
                         {
@@ -110,50 +110,50 @@ namespace Battleship
                 int boat = 0;
                 if (PTB.Checked.Equals(true))
                 {
-                    boat = 2;
+                    boat = Battleship.PATROL_BOAT;
                 }
                 else if (DEST.Checked.Equals(true))
                 {
-                    boat = 3;
+                    boat = Battleship.DESTROYER;
                 }
                 else if (Sub.Checked.Equals(true))
                 {
-                    boat = 4;
+                    boat = Battleship.SUBMARINE;
                 }
                 else if (BATT.Checked.Equals(true))
                 {
-                    boat = 5;
+                    boat = Battleship.BATTLESHIP;
                 }
                 else
                 {
-                    boat = 6;
+                    boat = Battleship.AIRCRAFT_CARRIER;
                 }
                 #endregion
 
                 game.AttemptToPlaceShip(ref game.humanBoard, boat, direction, xCoord, yCoord);
 
                 #region paint Boat
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                     {
                         if (game.humanBoard[i, j].Equals(boat))
                         {
                             switch (boat)
                             {
-                                case 2:
+                                case Battleship.PATROL_BOAT:
                                     playerBoard.buttons[i][j].BackColor = Color.Blue;
                                     break;
-                                case 3:
+                                case Battleship.DESTROYER:
                                     playerBoard.buttons[i][j].BackColor = Color.LightPink;
                                     break;
-                                case 4:
+                                case Battleship.SUBMARINE:
                                     playerBoard.buttons[i][j].BackColor = Color.PaleGreen;
                                     break;
-                                case 5:
+                                case Battleship.BATTLESHIP:
                                     playerBoard.buttons[i][j].BackColor = Color.Orange;
                                     break;
-                                case 6:
+                                case Battleship.AIRCRAFT_CARRIER:
                                     playerBoard.buttons[i][j].BackColor = Color.Yellow;
                                     break;
                             }
@@ -171,9 +171,9 @@ namespace Battleship
                 int xCoord = 0;
                 int yCoord = 0;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
                     {
                         if (sender.Equals(computerBoard.buttons[i][j]))
                         {
@@ -188,7 +188,7 @@ namespace Battleship
 
                 if (computerBoard.buttons[xCoord][yCoord].Text == string.Empty)
                 {
-                    if (game.FIRE(xCoord, yCoord) > 1)
+                    if (game.FIRE(xCoord, yCoord) > Battleship.EMPTY_SEA)
                     {
                         computerBoard.buttons[xCoord][yCoord].Text = "HIT";
                         computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderSize = 2;
@@ -209,7 +209,7 @@ namespace Battleship
                 {
                     int[] computerShot = game.ComputerFIRE();
 
-                    if (computerShot[0] > 1)
+                    if (computerShot[0] > Battleship.EMPTY_SEA)
                     {
                         playerBoard.buttons[computerShot[1]][computerShot[2]].Text = "HIT";
                         playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderSize = 2;
