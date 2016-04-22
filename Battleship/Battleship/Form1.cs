@@ -240,6 +240,14 @@ namespace Battleship
 
             playerBoard = new buttonBoard();
             playerBoard.label_who.Text = "Human's ships";
+
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
+            {
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
+                {
+                    playerBoard.buttons[i][j].Click += new EventHandler(button1_Click);
+                }
+            }
             splitContainer1.Panel1.Controls.Add(playerBoard);
             
             splitContainer1.Panel2.Controls.Add(Play);
