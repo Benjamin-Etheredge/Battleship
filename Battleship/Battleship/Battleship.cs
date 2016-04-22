@@ -113,8 +113,8 @@ namespace Battleship
             {
                 for (int j = 0; j < SIZE_OF_BOARD; j++)
                 {
-                    humanBoard[i, j] = 1;
-                    computerBoard[i, j] = 1;
+                    humanBoard[i, j] = EMPTY_SEA;
+                    computerBoard[i, j] = EMPTY_SEA;
                 }
             }
         }
@@ -267,14 +267,14 @@ namespace Battleship
                     if (orientation == Orientation.Horizontal)
                     {
 
-                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > 1)
+                        if (x + i >= SIZE_OF_BOARD || board[x + i, y] > EMPTY_SEA)
                         {
                             isLocationFree = false;
                         }
                     }
                     else
                     {
-                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > 1)
+                        if (y + i >= SIZE_OF_BOARD || board[x, y + i] > EMPTY_SEA)
                         {
                             isLocationFree = false;
                         }
@@ -311,10 +311,10 @@ namespace Battleship
             int x;
             int y;
 
-            while (hitValues[0].Equals(0))
+            while (hitValues[0] < 2)
             {
-                x = randomObject.Next(9);
-                y = randomObject.Next(9);
+                x = randomObject.Next(10);
+                y = randomObject.Next(10);
 
                 hitValues[0] = FIRE(x, y);
 
@@ -373,38 +373,50 @@ namespace Battleship
 
         public int FIRE(int x, int y)
         {
+            bool moveMade = false;
+
             // using a ref would be easier but can't in c#
-            int valueOfTargetedLocation = 0;
+            int valueOfTargetedLocation = EMPTY_SEA;
 
-            if (humanBoard[x, y].Equals(EMPTY_SEA))
+            if (!humanTurn)
             {
-                valueOfTargetedLocation = humanBoard[x, y];
-                humanBoard[x, y] = MISS;
+                if (humanBoard[x, y].Equals(EMPTY_SEA))
+                {
+                    valueOfTargetedLocation = humanBoard[x, y];
+                    humanBoard[x, y] = MISS;
+                    moveMade = true;
 
-            }
-            else if (humanBoard[x, y] > EMPTY_SEA)
-            {
-                //if (humanBoard[x, y].Equals(EMPTY_SEA))
-                //{
+                }
+                else if (humanBoard[x, y] > EMPTY_SEA)
+                {
+                    //if (humanBoard[x, y].Equals(EMPTY_SEA))
+                    //{
                     valueOfTargetedLocation = humanBoard[x, y];
                     humanBoard[x, y] = HIT;
-                //}
+                    moveMade = true;
+                    //}
+                }
             }
             else
             {
                 if (computerBoard[x, y].Equals(EMPTY_SEA))
                 {
                     valueOfTargetedLocation = computerBoard[x, y];
-                    computerBoard[x, y] = HIT;
+                    computerBoard[x, y] = MISS;
+                    moveMade = true;
                 }
                 else if (computerBoard[x, y] > EMPTY_SEA)
                 {
                     valueOfTargetedLocation = computerBoard[x, y];
-                    computerBoard[x, y] = MISS;
+                    computerBoard[x, y] = HIT;
+                    moveMade = true;
                 }
             }
 
-            humanTurn = !humanTurn;
+            if (moveMade)
+            {
+                humanTurn = !humanTurn;
+            }
 
             return valueOfTargetedLocation;
         }
