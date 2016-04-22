@@ -120,17 +120,7 @@ namespace Battleship
 
         // hand off to gui. gui shouldn't use this function.
         public void SetupHumanBoard()
-        {
-            //bool isPlaced = false;
-
-            //// place patrol
-            //while (!isPlaced)
-            //{
-
-            //}
-
-            //isPlaced = false;
-
+        {           
             // place patrol
             while (!AttemptToPlaceShip(ref humanBoard, PATROL_BOAT, PATROL_SIZE, (Orientation)randomObject.Next(1), randomObject.Next(SIZE_OF_BOARD - 1), randomObject.Next(SIZE_OF_BOARD - 1))) ;
 
@@ -145,7 +135,6 @@ namespace Battleship
 
             // place carrier
             while (!AttemptToPlaceShip(ref humanBoard, AIRCRAFT_CARRIER, AIRCRAFT_CARRIER_SIZE, (Orientation)randomObject.Next(1), randomObject.Next(SIZE_OF_BOARD - 1), randomObject.Next(SIZE_OF_BOARD - 1))) ;
-
         }
 
         public void SetupComputerBoard()
@@ -251,7 +240,6 @@ namespace Battleship
             return alreadyPlacedShip;
         }
 
-
         public bool AttemptToPlaceShip(ref int[,] board, int shipCode, int size, Orientation orientation, int x, int y)
         {
             bool alreadyPlacedShip = false;
@@ -328,6 +316,7 @@ namespace Battleship
                 y = randomObject.Next(9);
 
                 hitValues[0] = FIRE(x, y);
+
                 hitValues[1] = x;
                 hitValues[2] = y;
             }
@@ -403,11 +392,9 @@ namespace Battleship
                 }
             }
 
+            humanTurn = !humanTurn;
+
             return valueOfTargetedLocation;
         }
-
-
-
     }
-
 }

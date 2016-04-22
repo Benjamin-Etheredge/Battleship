@@ -11,273 +11,90 @@ namespace Battleship
 {
     public partial class Form1 : Form
     {
-        private Button[][] buttons;
-        private Battleship game;
-
+        public Battleship game;
+        public buttonBoard computerBoard;
 
         public Form1()
         {
             game = new Battleship();
-            dynamic_InitializeComponent();
-        }
+            InitializeComponent();
 
-        private void Form1_Load(object sender, EventArgs e)
+            playerBoard.label_who.Text = "Human's ships";
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    playerBoard.buttons[i][j].Click += new EventHandler(button1_Click);
+                }
+            }
+        }
+                        
+        private void Play_Click(object sender, EventArgs e)
         {
-            //game.Play();
+            Size = new Size(305, 750);
+            SetDesktopLocation(0, 0);
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    playerBoard.buttons[i][j].Enabled = false;
+                }
+            }
+
+            splitContainer1.Panel2.Controls.Clear();
+
+            computerBoard = new buttonBoard();
+            computerBoard.Dock = DockStyle.Fill;
+            computerBoard.label_who.Text = "Computer's ships";
+            splitContainer1.Panel2.Controls.Add(computerBoard);
+            splitContainer1.SplitterDistance = 334;
+
+            game.SetupComputerBoard();
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    computerBoard.buttons[i][j].Click += new EventHandler(button1_Click);
+                }
+            }
         }
 
-        private void dynamic_InitializeComponent()
+        private void Clear_Click(object sender, EventArgs e)
         {
-            splitContainer1 = new SplitContainer();
-            buttons = new Button[10][];
-
-            for (int i = 0; i < 10; i++)
-            {
-                buttons[i] = new Button[10];
-            }
-
+            game.ClearBoards();
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    buttons[i][j] = new Button();
+                    playerBoard.buttons[i][j].BackColor = Color.Transparent;
                 }
             }
-
-            //button91 = new Button()
-            Clear = new Button();
-            Vertical = new RadioButton();
-            Horizontal = new RadioButton();
-            ((ISupportInitialize)(splitContainer1)).BeginInit();
-            this.Vertical = new System.Windows.Forms.RadioButton();
-            this.Horizontal = new System.Windows.Forms.RadioButton();
-            this.Clear = new System.Windows.Forms.Button();
-            this.Play = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.PTB = new System.Windows.Forms.RadioButton();
-            this.Sub = new System.Windows.Forms.RadioButton();
-            this.DEST = new System.Windows.Forms.RadioButton();
-            this.BATT = new System.Windows.Forms.RadioButton();
-            this.AC = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
-            SuspendLayout();
-            // 
-            // splitContainer1
-            // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 0);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    splitContainer1.Panel1.Controls.Add(buttons[i][j]);
-                }
-            }
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.Play);
-            this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Panel2.Controls.Add(this.Clear);
-            this.splitContainer1.Size = new System.Drawing.Size(770, 385);
-            this.splitContainer1.SplitterDistance = 304;
-            this.splitContainer1.TabIndex = 103;
-            // 
-            // button91
-            // 
-            int n = 1;
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    buttons[i][j].Location = new Point(75*i, 23*j);
-                    buttons[i][j].Name = "button" + n.ToString();
-                    buttons[i][j].Size = new Size(75, 23);
-                    buttons[i][j].TabIndex = 199;
-                    buttons[i][j].UseVisualStyleBackColor = true;
-                    buttons[i][j].Click += new EventHandler(button1_Click);
-                    n++;
-                }
-            }
-
-            // 
-            // Clear
-            // 
-            this.Clear.Location = new System.Drawing.Point(662, 24);
-            this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(75, 23);
-            this.Clear.TabIndex = 105;
-            this.Clear.Text = "Clear Ships";
-            this.Clear.UseVisualStyleBackColor = true;
-            // 
-            // Play
-            // 
-            this.Play.Location = new System.Drawing.Point(570, 24);
-            this.Play.Name = "Play";
-            this.Play.Size = new System.Drawing.Size(75, 23);
-            this.Play.TabIndex = 108;
-            this.Play.Text = "Play!";
-            this.Play.UseVisualStyleBackColor = true;
-            this.Play.Click += new System.EventHandler(this.button102_Click);
-            // 
-            // Vertical
-            // 
-            this.Vertical.AutoSize = true;
-            this.Vertical.Location = new System.Drawing.Point(101, 21);
-            this.Vertical.Name = "Vertical";
-            this.Vertical.Size = new System.Drawing.Size(60, 17);
-            this.Vertical.TabIndex = 104;
-            this.Vertical.TabStop = true;
-            this.Vertical.Text = "Vertical";
-            this.Vertical.UseVisualStyleBackColor = true;
-            // 
-            // Horizontal
-            // 
-            this.Horizontal.AutoSize = true;
-            this.Horizontal.Checked = true;
-            this.Horizontal.Location = new System.Drawing.Point(9, 21);
-            this.Horizontal.Name = "Horizontal";
-            this.Horizontal.Size = new System.Drawing.Size(72, 17);
-            this.Horizontal.TabIndex = 103;
-            this.Horizontal.TabStop = true;
-            this.Horizontal.Text = "Horizontal";
-            this.Horizontal.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.Horizontal);
-            this.panel1.Controls.Add(this.Vertical);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(205, 74);
-            this.panel1.TabIndex = 106;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.AC);
-            this.panel2.Controls.Add(this.BATT);
-            this.panel2.Controls.Add(this.DEST);
-            this.panel2.Controls.Add(this.Sub);
-            this.panel2.Controls.Add(this.PTB);
-            this.panel2.Location = new System.Drawing.Point(214, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(339, 74);
-            this.panel2.TabIndex = 107;
-            // 
-            // PTB
-            // 
-            this.PTB.AutoSize = true;
-            this.PTB.Checked = true;
-            this.PTB.Location = new System.Drawing.Point(3, 16);
-            this.PTB.Name = "PTB";
-            this.PTB.Size = new System.Drawing.Size(64, 17);
-            this.PTB.TabIndex = 0;
-            this.PTB.TabStop = true;
-            this.PTB.Text = "PT Boat";
-            this.PTB.UseVisualStyleBackColor = true;
-            // 
-            // Sub
-            // 
-            this.Sub.AutoSize = true;
-            this.Sub.Location = new System.Drawing.Point(50, 45);
-            this.Sub.Name = "Sub";
-            this.Sub.Size = new System.Drawing.Size(75, 17);
-            this.Sub.TabIndex = 1;
-            this.Sub.TabStop = true;
-            this.Sub.Text = "Submarine";
-            this.Sub.UseVisualStyleBackColor = true;
-            // 
-            // DEST
-            // 
-            this.DEST.AutoSize = true;
-            this.DEST.Location = new System.Drawing.Point(120, 16);
-            this.DEST.Name = "DEST";
-            this.DEST.Size = new System.Drawing.Size(70, 17);
-            this.DEST.TabIndex = 2;
-            this.DEST.TabStop = true;
-            this.DEST.Text = "Destroyer";
-            this.DEST.UseVisualStyleBackColor = true;
-            // 
-            // BATT
-            // 
-            this.BATT.AutoSize = true;
-            this.BATT.Location = new System.Drawing.Point(173, 45);
-            this.BATT.Name = "BATT";
-            this.BATT.Size = new System.Drawing.Size(71, 17);
-            this.BATT.TabIndex = 3;
-            this.BATT.TabStop = true;
-            this.BATT.Text = "Battleship";
-            this.BATT.UseVisualStyleBackColor = true;
-            // 
-            // AC
-            // 
-            this.AC.AutoSize = true;
-            this.AC.Location = new System.Drawing.Point(243, 16);
-            this.AC.Name = "AC";
-            this.AC.Size = new System.Drawing.Size(91, 17);
-            this.AC.TabIndex = 4;
-            this.AC.TabStop = true;
-            this.AC.Text = "Aircraft Carrier";
-            this.AC.UseVisualStyleBackColor = true;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(770, 385);
-            this.Controls.Add(this.splitContainer1);
-            this.MaximumSize = new System.Drawing.Size(9999, 9999);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.ResumeLayout(false);
-
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
-            #region get Coordinates
-            int xCoord = 0;
-            int yCoord = 0;
-
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    if (sender.Equals(buttons[i][j]))
-                    {
-                        xCoord = i;
-                        yCoord = j;
-                    }
-                }
-            }
-            #endregion
-
             #region place Boat
             if (!game.boardsAreSet)
             {
+                #region get Coordinates
+                int xCoord = 0;
+                int yCoord = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (sender.Equals(playerBoard.buttons[i][j]))
+                        {
+                            xCoord = i;
+                            yCoord = j;
+                        }
+                    }
+                }
+                #endregion
                 #region get Orientation
                 Battleship.Orientation direction;
                 if (Horizontal.Checked.Equals(true))
@@ -289,7 +106,6 @@ namespace Battleship
                     direction = (Battleship.Orientation)1;
                 }
                 #endregion
-
                 #region get Boat
                 int boat = 0;
                 if (PTB.Checked.Equals(true))
@@ -321,24 +137,24 @@ namespace Battleship
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        if (game.humanBoard[i,j].Equals(boat))
+                        if (game.humanBoard[i, j].Equals(boat))
                         {
                             switch (boat)
                             {
                                 case 2:
-                                    buttons[i][j].BackColor = Color.AliceBlue;
+                                    playerBoard.buttons[i][j].BackColor = Color.Blue;
                                     break;
                                 case 3:
-                                    buttons[i][j].BackColor = Color.Red;
+                                    playerBoard.buttons[i][j].BackColor = Color.LightPink;
                                     break;
                                 case 4:
-                                    buttons[i][j].BackColor = Color.PaleGreen;
+                                    playerBoard.buttons[i][j].BackColor = Color.PaleGreen;
                                     break;
                                 case 5:
-                                    buttons[i][j].BackColor = Color.Orange;
+                                    playerBoard.buttons[i][j].BackColor = Color.Orange;
                                     break;
                                 case 6:
-                                    buttons[i][j].BackColor = Color.Yellow;
+                                    playerBoard.buttons[i][j].BackColor = Color.Yellow;
                                     break;
                             }
                         }
@@ -351,45 +167,85 @@ namespace Battleship
             #region FIRE
             else
             {
-                if(buttons[xCoord][yCoord].Text == string.Empty)
+                #region get Coordinates
+                int xCoord = 0;
+                int yCoord = 0;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (sender.Equals(computerBoard.buttons[i][j]))
+                        {
+                            xCoord = i;
+                            yCoord = j;
+                        }
+                    }
+                }
+                #endregion
+                #region player's move
+                bool userMoved = false;
+
+                if (computerBoard.buttons[xCoord][yCoord].Text == string.Empty)
                 {
                     if (game.FIRE(xCoord, yCoord) > 1)
                     {
-                        buttons[xCoord][yCoord].Text = "HIT";
+                        computerBoard.buttons[xCoord][yCoord].Text = "HIT";
+                        computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderSize = 2;
+                        computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.OrangeRed;
                     }
                     else
                     {
-
-                        buttons[xCoord][yCoord].Text = "MISSED";
+                        computerBoard.buttons[xCoord][yCoord].Text = "MISSED";
+                        computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderSize = 2;
+                        computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.White;
                     }
-                    return 0;
+                    userMoved = true;
                 }
+                #endregion
 
-                if (game.ComputerFIRE()[0] > 1) 
+                #region computer's move
+                if (userMoved)
                 {
-                    buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.OrangeRed;
+                    int[] computerShot = game.ComputerFIRE();
+
+                    if (computerShot[0] > 1)
+                    {
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].Text = "HIT";
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderSize = 2;
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderColor = Color.OrangeRed;
+                    }
+                    else
+                    {
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].Text = "MISSED";
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderSize = 2;
+                        playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderColor = Color.White;
+                    }
                 }
-                else
-                {
-                    buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.White;
-                }
-                return 1;
+                #endregion
                 //game.humanTurn = !game.humanTurn;
             }
             #endregion
         }
 
-        private void button102_Click(object sender, EventArgs e)
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clear.Enabled = false;
-            Horizontal.Enabled = false;
-            Vertical.Enabled = false;
-            foreach (RadioButton r in panel2.Controls)
-            {
-                r.Enabled = false;
-            }
+            game.ClearBoards();
+            splitContainer1.Panel1.Controls.Clear();
+            splitContainer1.Panel2.Controls.Clear();
+            Size = new Size(305, 536);
+            splitContainer1.SplitterDistance = 311;
 
-            game.SetupComputerBoard();
+            game = new Battleship();
+
+            playerBoard = new buttonBoard();
+            playerBoard.label_who.Text = "Human's ships";
+            splitContainer1.Panel1.Controls.Add(playerBoard);
+            
+            splitContainer1.Panel2.Controls.Add(Play);
+            splitContainer1.Panel2.Controls.Add(panel2);
+            splitContainer1.Panel2.Controls.Add(panel1);
+            splitContainer1.Panel2.Controls.Add(Clear);
         }
     }
 }
