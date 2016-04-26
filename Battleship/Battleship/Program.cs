@@ -1,4 +1,9 @@
-﻿using System;
+﻿//Amy Brown, Ben Etheredge, Benz McGahey
+//CS 315 - Spring 2016
+//Due: Tuesday April 26, 2016
+//Project 5: Battleship
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
