@@ -16,10 +16,19 @@ namespace Battleship
         public Battleship game;
         public buttonBoard computerBoard;
 
+        public Label winBanner;
+
         public Form1()
         {
             game = new Battleship();
             InitializeComponent();
+
+            winBanner = new Label();
+            winBanner.BackColor = Color.White;
+            winBanner.ForeColor = Color.Black;
+            winBanner.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            winBanner.Location = new Point(100, 150);
+            winBanner.Size = new Size(145, 20);
 
             playerBoard.label_who.Text = "Human's ships";
 
@@ -37,13 +46,14 @@ namespace Battleship
             Size = new Size(305, 750);
             SetDesktopLocation(0, 0);
 
-            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
-            {
-                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
-                {
-                    playerBoard.buttons[i][j].Enabled = false;
-                }
-            }
+            disableBoardButtons(playerBoard);
+            //for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
+            //{
+            //    for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
+            //    {
+            //        playerBoard.buttons[i][j].Enabled = false;
+            //    }
+            //}
 
             splitContainer1.Panel2.Controls.Clear();
 
@@ -173,6 +183,8 @@ namespace Battleship
                 int xCoord = 0;
                 int yCoord = 0;
 
+                bool foundIt = false;
+
                 for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
                 {
                     for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
@@ -181,8 +193,11 @@ namespace Battleship
                         {
                             xCoord = i;
                             yCoord = j;
+                            foundIt = true;
+                            break;
                         }
                     }
+                    if (foundIt) { break; }
                 }
                 #endregion
                 #region player's move
@@ -203,6 +218,24 @@ namespace Battleship
                         computerBoard.buttons[xCoord][yCoord].FlatAppearance.BorderColor = Color.White;
                     }
                     userMoved = true;
+                    checkWin();
+                    //switch (game.IsWinner())
+                    //{
+                    //    case 0:
+                    //        break;
+                    //    case 1:
+                    //        winBanner.Text = "HUMAN WINS!";
+                    //        computerBoard.Controls.Add(winBanner);
+                    //        winBanner.BringToFront();
+                    //        disableBoardButtons(computerBoard);
+                    //        break;
+                    //    case 2:
+                    //        winBanner.Text = "COMPUTER WINS!";
+                    //        playerBoard.Controls.Add(winBanner);
+                    //        winBanner.BringToFront();
+                    //        disableBoardButtons(computerBoard);
+                    //        break;
+                    //}
                 }
                 #endregion
 
@@ -223,11 +256,59 @@ namespace Battleship
                         playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderSize = 2;
                         playerBoard.buttons[computerShot[1]][computerShot[2]].FlatAppearance.BorderColor = Color.White;
                     }
+                    checkWin();
+                    //switch (game.IsWinner())
+                    //{
+                    //    case 0:
+                    //        break;
+                    //    case 1:
+                    //        winBanner.Text = "HUMAN WINS!";
+                    //        computerBoard.Controls.Add(winBanner);
+                    //        winBanner.BringToFront();
+                    //        break;
+                    //    case 2:
+                    //        winBanner.Text = "COMPUTER WINS!";
+                    //        playerBoard.Controls.Add(winBanner);
+                    //        winBanner.BringToFront();
+                    //        break;
+                    //}
                 }
                 #endregion
                 //game.humanTurn = !game.humanTurn;
             }
             #endregion
+        }
+
+        private void checkWin()
+        {
+            switch (game.IsWinner())
+            {
+                case 0:
+                    break;
+                case 1:
+                    winBanner.Text = "HUMAN WINS!";
+                    computerBoard.Controls.Add(winBanner);
+                    winBanner.BringToFront();
+                    disableBoardButtons(computerBoard);
+                    break;
+                case 2:
+                    winBanner.Text = "COMPUTER WINS!";
+                    playerBoard.Controls.Add(winBanner);
+                    winBanner.BringToFront();
+                    disableBoardButtons(computerBoard);
+                    break;
+            }
+        }
+
+        private void disableBoardButtons(buttonBoard board)
+        {
+            for (int i = 0; i < Battleship.SIZE_OF_BOARD; i++)
+            {
+                for (int j = 0; j < Battleship.SIZE_OF_BOARD; j++)
+                {
+                    board.buttons[i][j].Enabled = false;
+                }
+            }
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)

@@ -376,8 +376,9 @@ namespace Battleship
             bool moveMade = false;
 
             // using a ref would be easier but can't in c#
-            int valueOfTargetedLocation = EMPTY_SEA;
+            int valueOfTargetedLocation = 0;
 
+            //If Computer's shot
             if (!humanTurn)
             {
                 if (humanBoard[x, y].Equals(EMPTY_SEA))
@@ -397,17 +398,18 @@ namespace Battleship
                     //}
                 }
             }
+            //If Human's shot
             else
             {
+                valueOfTargetedLocation = computerBoard[x, y];
+
                 if (computerBoard[x, y].Equals(EMPTY_SEA))
                 {
-                    valueOfTargetedLocation = computerBoard[x, y];
                     computerBoard[x, y] = MISS;
                     moveMade = true;
                 }
                 else if (computerBoard[x, y] > EMPTY_SEA)
                 {
-                    valueOfTargetedLocation = computerBoard[x, y];
                     computerBoard[x, y] = HIT;
                     moveMade = true;
                 }
